@@ -17,8 +17,11 @@ typedef struct {
     TIM_HandleTypeDef* pwm_timer;
     uint32_t pwm_channel;
     TIM_HandleTypeDef* encoder_timer;
-    GPIO_TypeDef* direction_port;
-    uint16_t direction_pin;
+    GPIO_TypeDef* dir1_port;
+    uint16_t      dir1_pin;
+    GPIO_TypeDef* dir2_port;
+    uint16_t      dir2_pin;
+
 
     // Motor Parameters
     float gear_ratio;
@@ -35,13 +38,15 @@ typedef struct {
 // --- Public Function Prototypes ---
 
 void Motor_Init(N20_Motor_t* motor, TIM_HandleTypeDef* pwm_timer, uint32_t pwm_channel,
-                TIM_HandleTypeDef* encoder_timer, GPIO_TypeDef* dir_port, uint16_t dir_pin);
+                TIM_HandleTypeDef* encoder_timer, GPIO_TypeDef* dir1_port, uint16_t dir1_pin,
+                GPIO_TypeDef* dir2_port, uint16_t dir2_pin);
 
 void Motor_Set_Speed(N20_Motor_t* motor, int16_t speed);
 
-void Motor_Stop(N20_Motor_t* motor);
 
-void Motor_Process_RPM(N20_Motor_t* motor);
+int Motor_Get_Scaled_RPM(N20_Motor_t* motor);
+
+void Motor_Stop(N20_Motor_t* motor);
 
 
 #endif /* INC_N20_MOTOR_H_ */
