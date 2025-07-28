@@ -105,7 +105,9 @@ int32_t Motor_Get_Scaled_RPM(N20_Motor_t* motor)
     if (delta_time < 0.001f)
     {
         // Not enough time passed, return a scaled version of the last known RPM
-        return scale_value(fabsf(motor->rpm), 0.0f, MAX_MOTOR_RPM, 0, 999);
+        //return scale_value(fabsf(motor->rpm), 0.0f, MAX_MOTOR_RPM, 0, 999);
+	int32_t scaled_last_rpm = scale_value(fabsf(motor->rpm), 0.0f, MAX_MOTOR_RPM, 0, 999);
+        return (motor->rpm < 0) ? -scaled_last_rpm : scaled_last_rpm;
     }
 
     int16_t delta_counts = (int16_t)(current_encoder_count - motor->last_encoder_count);
@@ -118,10 +120,12 @@ int32_t Motor_Get_Scaled_RPM(N20_Motor_t* motor)
 
     // Scale the absolute RPM to the 0-999 range ---
     
-    // We use fabsf() to get the absolute speed, 
-    float absolute_rpm = fabsf(calculated_rpm);
-    int32_t scaled_rpm = scale_value(absolute_rpm, 0.0f, MAX_MOTOR_RPM, 0, 999);
+    //Old section: We use fabsf() to get the absolute speed, this returns only a positive value
+    //float absolute_rpm = fabsf(calculated_rpm);
+    //int32_t scaled_rpm = scale_value(absolute_rpm, 0.0f, MAX_MOTOR_RPM, 0, 999);
+	//return scaled_rpm;
+    int32_t scaled_rpm = scale_value(fabsf(calculated_rpm), 0.0f, MAX_MOTOR_RPM, 0, 999);
+	return (calculated_rpm < 0) ? -scaled_rpm : scaled_rpm;
 
-    return scaled_rpm;
 }
 
