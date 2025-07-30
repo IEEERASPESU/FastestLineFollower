@@ -358,33 +358,34 @@ void SystemClock_Config(void);
 	}
 
 
-	void sharp_turn () {
+	void sharp_turn() {
+    if (last_idle < 10) {
+        if (last_end == 0) {
+            // last line detected on left side
+            inner_pid_control(200, 500);  // right, left speeds
+        } else {
+            inner_pid_control(500, 200);  // right, left speeds
+        }
+    } else {
+        // sharp turns when line lost longer
+        if (last_end == 0) {
+            inner_pid_control(1000, -230); // right forward, left reverse
+        } else {
+            inner_pid_control(-230, 1000); // right reverse, left forward
+        }
+    }
 
-			if (last_idle < 10)   //last idle increments while no sensor reads a line and causes bot to turn to find line
-			{						// set to handle curves
-				if (last_end == 0) //last end tells which side of sensor array last saw the line
-					motor_control(200, 500);
-				else
-					motor_control(500, 200);
-				//tune the values to handle the curves
-			}
-			else //set to handle sharp turns
-			{
-				if (last_end == 0)
-					motor_control(-230, 1000);// tune the values to handle the sharp turns
-				else
-					motor_control(1000, -230);
-			}
-			printf("Sharp turn");
-		}
+    printf("Sharp turn\n");
+}
 
-	void forward_brake(int pos_right, int pos_left)
-	{
-		if (actives == 0)
-			sharp_turn();
-		else
-		  motor_control(pos_right, pos_left);
-	}
+	void forward_brake(int speed_right, int speed_left)
+    {
+    if (actives == 0)
+        sharp_turn();
+    else
+        inner_pid_control(speed_right, speed_left);
+    }
+
 	int errors_sum (int index, int abs)
 	{
 	  int sum = 0;
