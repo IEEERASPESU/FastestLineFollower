@@ -150,36 +150,7 @@ void SystemClock_Config(void);
 		HAL_GPIO_Init(GPIOx, &GPIO_InitStruct);
 	}
 
-	void motor_control (double pos_right, double pos_left)
-	{
-		if (pos_left < 0 )
-		{
-			HAL_GPIO_WritePin(AENANBLE_GPIO_Port, AENANBLE_Pin, 1);
-			__HAL_TIM_SET_COMPARE (&htim2, TIM_CHANNEL_2, -1*pos_left);  //run left motor in reverese
-		}
-		else
-		{
-			HAL_GPIO_WritePin(AENANBLE_GPIO_Port, AENANBLE_Pin, 0);
-			__HAL_TIM_SET_COMPARE (&htim2, TIM_CHANNEL_2, ARR*pos_left); // run left motor forward
-
-		}
-		if (pos_right < 0 )
-		{
-			HAL_GPIO_WritePin(BENABLE_GPIO_Port, BENABLE_Pin, 1); //run right motor reverse
-			__HAL_TIM_SET_COMPARE (&htim2, TIM_CHANNEL_1, -1*pos_right);
-		}
-		else
-		{
-			HAL_GPIO_WritePin(BENABLE_GPIO_Port, BENABLE_Pin, 0);
-			__HAL_TIM_SET_COMPARE (&htim2, TIM_CHANNEL_1, ARR*pos_right); // run right motor forward
-			//printf("motor control: %lf %lf",pos_left,pos_right);
-
-		}
-		printf("Motor : %lf %lf", pos_left, pos_right);
-
-	}
-
-
+//Motor control function was removed
 
 	int QTR16_read() {
 	    //uint32_t sensor_read = 0x00000000;
