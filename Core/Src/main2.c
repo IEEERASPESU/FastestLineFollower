@@ -674,12 +674,12 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
   //************************************* */
-  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);  // Left motor encoder
-  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);  // Right motor encoder
+  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);  // Left motor encoder
+  HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);  // Right motor encoder
 
  // HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
 
   Motor_Init(&left_motor,  &htim4, TIM_CHANNEL_1, &htim2, GPIOA, GPIO_PIN_5, GPIOB, GPIO_PIN_9);
   Motor_Init(&right_motor, &htim4, TIM_CHANNEL_2, &htim3, GPIOC, GPIO_PIN_4, GPIOA, GPIO_PIN_7);
