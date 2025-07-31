@@ -681,8 +681,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
-  Motor_Init(&left_motor,  &htim4, TIM_CHANNEL_1, &htim2, GPIOA, GPIO_PIN_0, GPIOA, GPIO_PIN_1);
-  Motor_Init(&right_motor, &htim4, TIM_CHANNEL_2, &htim3, GPIOA, GPIO_PIN_6, GPIOA, GPIO_PIN_4);
+  Motor_Init(&left_motor,  &htim4, TIM_CHANNEL_1, &htim2, GPIOA, GPIO_PIN_5, GPIOB, GPIO_PIN_9);
+  Motor_Init(&right_motor, &htim4, TIM_CHANNEL_2, &htim3, GPIOC, GPIO_PIN_4, GPIOA, GPIO_PIN_7);
 
   GPIO_PinState pb6 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_6);
   GPIO_PinState pb7 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_7);
